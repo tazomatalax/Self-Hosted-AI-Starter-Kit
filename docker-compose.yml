@@ -7,6 +7,7 @@ volumes:
   portainer_data:
   nginx_proxy_manager_data:
   nginx_proxy_manager_letsencrypt:
+  homer_data:
 
 networks:
   ai-network:
