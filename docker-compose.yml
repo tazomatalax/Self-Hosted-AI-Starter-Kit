@@ -179,10 +179,6 @@ services:
     restart: unless-stopped
     ports:
       - 8080:8080
-    environment:
-      - HOST_IP=${HOST_IP}
-    extra_hosts:
-      - "host.docker.internal:${HOST_IP}"
     volumes:
       - homer_data:/www/assets
       - ./homer/homer_config.yml:/www/assets/config.yml:ro
