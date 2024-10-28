@@ -175,7 +175,7 @@ services:
   homer:
     image: b4bz/homer:latest
     container_name: homer
-    networks: ['demo']
+    networks: ['ai-network']
     restart: unless-stopped
     ports:
       - 8080:8080
