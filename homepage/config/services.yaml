@@ -2,19 +2,7 @@
 # For configuration options and examples, please see:
 # https://gethomepage.dev/configs/services
 
-- Services:
-    - Portainer:
-        href: "http://localhost:9000"
-        description: "Management Interface"
-        icon: "portainer.png"
-    - N8N:
-        href: "http://localhost:5678"
-        description: "Workflow Automation"
-        icon: "n8n.png"
-    - Qdrant:
-        href: "http://localhost:6333"
-        description: "Database Service"
-        icon: "qdrant.png"
+- AI Services:
     - Open Web UI:
         href: "http://localhost:3000"
         description: "User Interface"
@@ -23,3 +11,22 @@
         href: "http://localhost:11434"
         description: "AI Service"
         icon: "ollama.png"
+- Managment Services:
+    - Portainer:
+        href: "http://localhost:9000"
+        description: "Management Interface"
+        icon: "portainer.png"
+- Automation Services:
+    - N8N:
+        href: "http://localhost:5678"
+        description: "Workflow Automation"
+        icon: "n8n.png"
+- Database Services:
+    - Qdrant:
+        href: "http://localhost:6333/dashboard"
+        description: "Database Service"
+        icon: "https://avatars.githubusercontent.com/u/73504361?s=200&v=4"
+    - Google Drive:
+        href: "https://drive.google.com/drive/my-drive"
+        description: "Cloud Storage"
+        icon: "https://upload.wikimedia.org/wikipedia/commons/1/12/Google_Drive_icon_%282020%29.svg"

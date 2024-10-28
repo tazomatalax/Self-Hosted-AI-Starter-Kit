@@ -158,21 +158,6 @@ services:
       - portainer_data:/data
 
 
-# Portainer Initialization Container
-  portainer-init:
-    image: curlimages/curl:latest
-    container_name: portainer-init
-    depends_on:
-      - portainer
-    networks: ['ai-network']
-    entrypoint: /bin/sh
-    command:
-      - "-c"
-      - "sleep 3; /initialize_portainer.sh"
-    volumes:
-      - ./initialize_portainer.sh:/initialize_portainer.sh
-
-
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
