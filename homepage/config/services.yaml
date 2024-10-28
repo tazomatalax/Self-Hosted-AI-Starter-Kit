@@ -1,0 +1,25 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/services
+
+- Services:
+    - Portainer:
+        href: "http://localhost:9000"
+        description: "Management Interface"
+        icon: "portainer.png"
+    - N8N:
+        href: "http://localhost:5678"
+        description: "Workflow Automation"
+        icon: "n8n.png"
+    - Qdrant:
+        href: "http://localhost:6333"
+        description: "Database Service"
+        icon: "database.png"
+    - Open Web UI:
+        href: "http://localhost:3000"
+        description: "User Interface"
+        icon: "ollama.png"
+    - Ollama:
+        href: "http://localhost:11434"
+        description: "AI Service"
+        icon: "ollama.png"

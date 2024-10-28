@@ -173,13 +173,15 @@ services:
       - ./initialize_portainer.sh:/initialize_portainer.sh
 
 
-  homer:
-    image: b4bz/homer:latest
-    container_name: homer
-    networks: ['ai-network']
-    restart: unless-stopped
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    environment:
+      PUID: 1000 # optional, your user id
+      PGID: 1000 # optional, your group id
     ports:
-      - 8080:8080
+      - 3333:3000
     volumes:
-      - homer_data:/www/assets
-      - ./homer/homer_config.yml:/www/assets/config.yml:ro
+      - ./homepage/config:/app/config # Make sure your local config directory exists
+      - /var/run/docker.sock:/var/run/docker.sock:ro # optional, for docker integrations
+    restart: unless-stopped
