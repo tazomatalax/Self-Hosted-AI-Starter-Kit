@@ -168,7 +168,7 @@ services:
     entrypoint: /bin/sh
     command:
       - "-c"
-      - "sleep 3; ./initialize_portainer.sh"
+      - "sleep 3; /initialize_portainer.sh"
     volumes:
       - ./initialize_portainer.sh:/initialize_portainer.sh
 
@@ -176,6 +176,7 @@ services:
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
+    networks: ['ai-network']
     environment:
       PUID: 1000 # optional, your user id
       PGID: 1000 # optional, your group id
