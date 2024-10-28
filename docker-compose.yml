@@ -163,10 +163,26 @@ services:
     container_name: portainer-init
     depends_on:
       - portainer
-    networks: ['demo']
+    networks: ['ai-network']
     entrypoint: /bin/sh
     command:
       - "-c"
       - "./initialize_portainer.sh"
     volumes:
       - ./initialize_portainer.sh:/initialize_portainer.sh
+
+
+  homer:
+    image: b4bz/homer:latest
+    container_name: homer
+    networks: ['demo']
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    environment:
+      - HOST_IP=${HOST_IP}
+    extra_hosts:
+      - "host.docker.internal:${HOST_IP}"
+    volumes:
+      - homer_data:/www/assets
+      - ./homer/homer_config.yml:/www/assets/config.yml:ro
