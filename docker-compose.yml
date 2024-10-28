@@ -4,13 +4,16 @@ volumes:
   ollama_storage:
   qdrant_storage:
   open-webui:
+  portainer_data:
+  nginx_proxy_manager_data:
+  nginx_proxy_manager_letsencrypt:
 
 networks:
-  demo:
+  ai-network:
 
 x-n8n: &service-n8n
   image: n8nio/n8n:latest
-  networks: ['demo']
+  networks: ['ai-network']
   environment:
     - DB_TYPE=postgresdb
     - DB_POSTGRESDB_HOST=postgres
@@ -26,7 +29,7 @@ x-n8n: &service-n8n
 x-ollama: &service-ollama
   image: ollama/ollama:latest
   container_name: ollama
-  networks: ['demo']
+  networks: ['ai-network']
   restart: unless-stopped
   ports:
     - 11434:11434
@@ -35,7 +38,7 @@ x-ollama: &service-ollama
 
 x-init-ollama: &init-ollama
   image: ollama/ollama:latest
-  networks: ['demo']
+  networks: ['ai-network']
   container_name: ollama-pull-llama
   volumes:
     - ollama_storage:/root/.ollama
@@ -47,7 +50,7 @@ x-init-ollama: &init-ollama
 services:
   open-webui:
     image: ghcr.io/open-webui/open-webui:main
-    networks: ['demo']
+    networks: ['ai-network']
     restart: unless-stopped
     container_name: open-webui
     ports:
@@ -59,7 +62,7 @@ services:
 
   postgres:
     image: postgres:16-alpine
-    networks: ['demo']
+    networks: ['ai-network']
     restart: unless-stopped
     ports:
       - 5432:5432
@@ -107,7 +110,7 @@ services:
   qdrant:
     image: qdrant/qdrant
     container_name: qdrant
-    networks: ['demo']
+    networks: ['ai-network']
     restart: unless-stopped
     ports:
       - 6333:6333
@@ -140,3 +143,30 @@ services:
     <<: *init-ollama
     depends_on:
       - ollama-gpu
+
+  # Portainer Service
+  portainer:
+    image: portainer/portainer-ce
+    container_name: portainer
+    networks: ['ai-network']
+    restart: unless-stopped
+    ports:
+      - 9000:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
+
+# Portainer Initialization Container
+  portainer-init:
+    image: curlimages/curl:latest
+    container_name: portainer-init
+    depends_on:
+      - portainer
+    networks: ['demo']
+    entrypoint: /bin/sh
+    command:
+      - "-c"
+      - "./initialize_portainer.sh"
+    volumes:
+      - ./initialize_portainer.sh:/initialize_portainer.sh
