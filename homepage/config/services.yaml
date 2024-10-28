@@ -14,7 +14,7 @@
     - Qdrant:
         href: "http://localhost:6333"
         description: "Database Service"
-        icon: "database.png"
+        icon: "qdrant.png"
     - Open Web UI:
         href: "http://localhost:3000"
         description: "User Interface"
