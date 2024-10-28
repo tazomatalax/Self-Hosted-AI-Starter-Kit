@@ -1,0 +1,1407 @@
+{
+  "name": "Auto Categorise Outlook Emails with AI",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "30f5203b-469d-4f0c-8493-e8f08e14e4fe",
+      "name": "When clicking ‘Test workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        380,
+        240
+      ],
+      "typeVersion": 1,
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "content": "# Auto Categorise Outlook Emails with AI",
+        "height": 110.58643966444157,
+        "width": 727.9032097745135,
+        "color": 7
+      },
+      "id": "d16f59dd-f54e-487b-9aac-67f109ba9869",
+      "name": "Sticky Note8",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1940,
+        -480
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "model": "llama3.1:latest",
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "id": "9d79875f-148e-46ef-967a-95c07298456d",
+      "name": "Ollama Chat Model1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "position": [
+        2069,
+        484
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "ollamaApi": {
+          "id": "U7aP1bMjOcBIHIwi",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "messageId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $('varID & Category1').item.json.id }}"
+        },
+        "updateFields": {
+          "categories": "={{ \n  [$('varJSON1').first().json.output.category, $('varJSON1').first().json.output.subCategory]\n    .filter(item => item && item.trim() !== \"\")\n    .map(item => item.charAt(0).toUpperCase() + item.slice(1))\n}}"
+        }
+      },
+      "id": "100db1cb-3819-43c7-a74b-5c087ad4f2da",
+      "name": "Microsoft Outlook12",
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "position": [
+        3640,
+        -192
+      ],
+      "typeVersion": 2,
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "NccrNHW818CX3pdM",
+          "name": "Microsoft Outlook account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "d4969259-a3ae-473d-82ef-0c9f7933c899",
+      "name": "Loop Over Items1",
+      "type": "n8n-nodes-base.splitInBatches",
+      "position": [
+        1100,
+        248
+      ],
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "messageId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $('varID & Category1').item.json.id }}"
+        },
+        "updateFields": {
+          "categories": "={{ \n  [$('varJSON1').first().json.output.category, $('varJSON1').first().json.output.subCategory]\n    .filter(item => item && item.trim() !== \"\")\n    .map(item => item.charAt(0).toUpperCase() + item.slice(1))\n}}"
+        }
+      },
+      "id": "524f6be3-7708-4aae-b9ab-e0ef8180a627",
+      "name": "Microsoft Outlook13",
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "position": [
+        3640,
+        -12
+      ],
+      "typeVersion": 2,
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "NccrNHW818CX3pdM",
+          "name": "Microsoft Outlook account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "messageId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $('varID & Category1').item.json.id }}"
+        },
+        "updateFields": {
+          "categories": "={{ \n  [$('varJSON1').first().json.output.category, $('varJSON1').first().json.output.subCategory]\n    .filter(item => item && item.trim() !== \"\")\n    .map(item => item.charAt(0).toUpperCase() + item.slice(1))\n}}"
+        }
+      },
+      "id": "e4446e84-c05e-4d04-b415-7608e39024ee",
+      "name": "Microsoft Outlook16",
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "position": [
+        3649,
+        304
+      ],
+      "typeVersion": 2,
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "NccrNHW818CX3pdM",
+          "name": "Microsoft Outlook account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "messageId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $('varID & Category1').item.json.id }}"
+        },
+        "updateFields": {
+          "categories": "={{ \n  [$('varJSON1').first().json.output.category, $('varJSON1').first().json.output.subCategory]\n    .filter(item => item && item.trim() !== \"\")\n    .map(item => item.charAt(0).toUpperCase() + item.slice(1))\n}}"
+        }
+      },
+      "id": "2fcecd9e-95cc-489a-b874-699c54518e44",
+      "name": "Microsoft Outlook18",
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "position": [
+        3649,
+        144
+      ],
+      "typeVersion": 2,
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "NccrNHW818CX3pdM",
+          "name": "Microsoft Outlook account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "html": "={{ $('Loop Over Items1').item.json.body.content }}",
+        "options": {}
+      },
+      "id": "ebf606f9-099c-4218-b23b-66e2487262d0",
+      "name": "Markdown1",
+      "type": "n8n-nodes-base.markdown",
+      "position": [
+        1360,
+        268
+      ],
+      "notesInFlow": true,
+      "typeVersion": 1,
+      "notes": "Converts the body of the email to markdown"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "edb304e1-3e9f-4a77-918c-25646addbc53",
+              "name": "subject",
+              "type": "string",
+              "value": "={{ $json.subject }}"
+            },
+            {
+              "id": "57a3ef3a-2701-40d9-882f-f43a7219f148",
+              "name": "importance",
+              "type": "string",
+              "value": "={{ $json.importance }}"
+            },
+            {
+              "id": "d8317f4f-aa0e-4196-89af-cb016765490a",
+              "name": "sender",
+              "type": "object",
+              "value": "={{ $json.sender.emailAddress }}"
+            },
+            {
+              "id": "908716c8-9ff7-4bdc-a1a3-64227559635e",
+              "name": "from",
+              "type": "object",
+              "value": "={{ $json.from.emailAddress }}"
+            },
+            {
+              "id": "ce007329-e221-4c5a-8130-2f8e9130160f",
+              "name": "body",
+              "type": "string",
+              "value": "={{ $json.data\n    .replace(/<[^>]*>/g, '')                      // Remove HTML tags\n    .replace(/\\[(.*?)\\]\\((.*?)\\)/g, '')            // Remove Markdown links like [text](link)\n    .replace(/!\\[.*?\\]\\(.*?\\)/g, '')               // Remove Markdown images like ![alt](image-link)\n    .replace(/\\|/g, '')                            // Remove table separators \"|\"\n    .replace(/-{3,}/g, '')                         // Remove horizontal rule \"---\"\n    .replace(/\\n+/g, ' ')                          // Remove multiple newlines\n    .replace(/([^\\w\\s.,!?@])/g, '')                // Remove special characters except essential ones\n    .replace(/\\s{2,}/g, ' ')                       // Replace multiple spaces with a single space\n    .trim()                                        // Trim leading/trailing whitespace\n}}\n"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ff447dd5-3ef6-4a02-8453-3489af8bf6b5",
+      "name": "varEmal1",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        1560,
+        268
+      ],
+      "typeVersion": 3.4,
+      "notes": "Set email fields"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "messageId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $('varID & Category1').item.json.id }}"
+        },
+        "updateFields": {
+          "categories": "={{ \n  [$('varJSON1').first().json.output.category, $('varJSON1').first().json.output.subCategory]\n    .filter(item => item && item.trim() !== \"\")\n    .map(item => item.charAt(0).toUpperCase() + item.slice(1))\n}}"
+        }
+      },
+      "id": "198524cb-c9f0-4261-8c38-7c878efe7457",
+      "name": "Microsoft Outlook20",
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "position": [
+        3640,
+        460
+      ],
+      "typeVersion": 2,
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "NccrNHW818CX3pdM",
+          "name": "Microsoft Outlook account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "messageId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $('varID & Category1').item.json.id }}"
+        },
+        "updateFields": {
+          "categories": "={{ \n  [$('varJSON1').first().json.output.category, $('varJSON1').first().json.output.subCategory]\n    .filter(item => item && item.trim() !== \"\")\n    .map(item => item.charAt(0).toUpperCase() + item.slice(1))\n}}"
+        }
+      },
+      "id": "ec73629c-59ac-4f0e-a432-2c06934952ab",
+      "name": "Microsoft Outlook21",
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "position": [
+        3649,
+        844
+      ],
+      "typeVersion": 2,
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "NccrNHW818CX3pdM",
+          "name": "Microsoft Outlook account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "c8cd6917-f94e-4fb7-8601-b8ed8f1aa8bf",
+              "operator": {
+                "type": "array",
+                "operation": "empty",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.categories }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "0a19d15c-0cd3-4f26-9be2-4914522751fb",
+      "name": "Filter1",
+      "type": "n8n-nodes-base.filter",
+      "position": [
+        840,
+        248
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "f8cf2a56-cea8-4150-b7a0-048dbda20f2f",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.isRead }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "96e6e31c-6306-44a8-a57a-2b5216636b00",
+      "name": "If1",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        4260,
+        468
+      ],
+      "typeVersion": 2.2,
+      "notes": "Checks if the email has been read"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "messageId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $('varID & Category1').item.json.id }}"
+        },
+        "updateFields": {
+          "categories": "={{ \n  [$('varJSON1').first().json.output.category, $('varJSON1').first().json.output.subCategory]\n    .filter(item => item && item.trim() !== \"\")\n    .map(item => item.charAt(0).toUpperCase() + item.slice(1))\n}}"
+        }
+      },
+      "id": "8a6e0118-abe3-45e2-aefc-94640348b2ec",
+      "name": "Microsoft Outlook22",
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "position": [
+        3649,
+        664
+      ],
+      "typeVersion": 2,
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "NccrNHW818CX3pdM",
+          "name": "Microsoft Outlook account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0dc6d439-60fb-49f6-b4d5-f5cce6f030ad",
+              "name": "error",
+              "type": "string",
+              "value": "={{ $json }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e2d8e7b5-4447-4327-9f4e-b8d52765667e",
+      "name": "Catch Errors1",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        2700,
+        408
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0c52f57f-74eb-4385-ac6b-f3e5f4f50e73",
+              "name": "output",
+              "type": "object",
+              "value": "={{ $json.output.replace(/^.*?({.*}).*$/s, '$1') }}"
+            }
+          ]
+        },
+        "options": {
+          "ignoreConversionErrors": true
+        }
+      },
+      "id": "17f6ac43-51e4-4bee-b0d8-13deb3bf3cc9",
+      "name": "varJSON1",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        2480,
+        268
+      ],
+      "typeVersion": 3.4,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "content": "## Outlook Business with filters\nFilters:\n```\nflag/flagStatus eq 'notFlagged' and not categories/any()\n```\n\nThese filters ensure we do not process flagged emails or email that already have a category set.",
+        "height": 401.49417117683515,
+        "width": 411.91693012378937
+      },
+      "id": "82dd9631-a34b-4d54-be28-6f8dcc3548f0",
+      "name": "Sticky Note10",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        580,
+        20
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "limit": 10,
+        "output": "fields",
+        "fields": [
+          "flag",
+          "from",
+          "importance",
+          "replyTo",
+          "sender",
+          "subject",
+          "toRecipients",
+          "body",
+          "categories",
+          "isRead"
+        ],
+        "filtersUI": {
+          "values": {
+            "filters": {
+              "custom": "flag/flagStatus eq 'notFlagged' and not categories/any()",
+              "foldersToInclude": [
+                "AQMkADAwATYwMAItOTY4ZC0wZTcxLTAwAi0wMAoALgAAA1jKGrDN_RBCn7ACBndpmjsBANEOnyC7ZDdGvqCSLEudpZgAAAIBDAAAAA=="
+              ]
+            }
+          }
+        },
+        "options": {}
+      },
+      "id": "0583e196-37a5-43db-8c0a-aa624029c926",
+      "name": "Microsoft Outlook23",
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "position": [
+        640,
+        240
+      ],
+      "typeVersion": 2,
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "NccrNHW818CX3pdM",
+          "name": "Microsoft Outlook account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "de2ad4f2-7381-4715-a3f4-59611e161b74",
+              "name": "id",
+              "type": "string",
+              "value": "={{ $('Microsoft Outlook Trigger').item.json.id }}"
+            },
+            {
+              "id": "458c7a89-e4a3-46d0-8b38-72d87748e306",
+              "name": "category",
+              "type": "string",
+              "value": "\"action\", \"junk\", \"receipt\", \"SaaS\", \"community\", \"business\" or \"other\""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a9540e6b-929b-4460-8972-93e4d19cd934",
+      "name": "varID & Category1",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        1840,
+        260
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "content": "## Sanitise Email \nRemoves HTML and useless information in preparation for the AI Agent",
+        "height": 301.40952380952365,
+        "width": 418.7820408163265,
+        "color": 6
+      },
+      "id": "e6b3b41e-d7d3-4c9b-8189-a005c748ff18",
+      "name": "Sticky Note11",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1300,
+        148
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Modify Categories \nEdit this to customise category selection",
+        "height": 298.37931972789124,
+        "width": 256.16108843537415,
+        "color": 6
+      },
+      "id": "f9787a75-526c-4ef1-b0a7-0db7d890ab3f",
+      "name": "Sticky Note12",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1760,
+        148
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Convert to JSON\n* Ensures the Agent output to converted to JSON\n* Catches any errors and continues processing",
+        "height": 463.0204081632651,
+        "width": 441.003537414966,
+        "color": 5
+      },
+      "id": "50223a01-34cf-4191-9dd7-3dac02a9e945",
+      "name": "Sticky Note13",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2420,
+        128
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Switch Categories\nEnsure your categories match the **varID & Category** Edit Fields node",
+        "height": 454.93986394557805,
+        "width": 311.71482993197264,
+        "color": 5
+      },
+      "id": "4580c532-96a6-46b4-8922-d79316d1cc01",
+      "name": "Sticky Note14",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        3060,
+        128
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Set Categories\n",
+        "height": 1289.0156245602684,
+        "width": 251.3480889735252,
+        "color": 4
+      },
+      "id": "b51a7c34-2a5e-4670-81a4-d1582711c69a",
+      "name": "Sticky Note15",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        3569,
+        -276
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Move to Folders\n",
+        "height": 770.995811762121,
+        "width": 251.3480889735252,
+        "color": 4
+      },
+      "id": "3a7ede7b-539b-49d2-8803-153ca6c9eb69",
+      "name": "Sticky Note16",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        3889,
+        -276
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Check if email has been read\n\n",
+        "height": 293.65527013262994,
+        "color": 4
+      },
+      "id": "ee9a9d78-8c07-470a-9d1b-ceddfc8875ca",
+      "name": "Sticky Note17",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        4200,
+        353
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Categorise the following email\n<email>\n{{ $('varEmal1').first().json.toJsonString() }}\n</email>\n\nEnsure your final output is valid JSON with no additional text or token in the following format:\n\n{\n  \"subject\": \"SUBJECT_LINE\",1\n  \"category\": \"CATEGORY\",\n  \"subCategory\": \"SUBCATEGORY\", //use sparingly\n  \"analysis\": \"ANALYSIS_REASONING\"\n}\n\nRemember you can only use ONE of the following categories {{ $json.category }}. No other categories can be used. Use the subcategory for additional context, for example, if a SaaS email requires action, or if a business email requires action. Do not create any additional subcategories, you can only use ONE of the following {{ $json.category }}.",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=You're an AI assistant for a freelance developer, categorizing emails as {{ $json.category }}. Email info is in <email> tags.\n\nCategorization priority:\n\nAction: Needs response or action (includes some SaaS emails), avoid sales email but include enquires.\nJunk: Ads, sales, newsletters, promotions, daily digests, (emojis often indicate junk), phishing, scams, discounts etc.\nReceipt: Any purchase confirmation.\nSaaS: Account/security updates, unless action required, generic SaaS information, usually from a non-personal email address.\nCommunity: Updates, events, forums, everything related to \"community\".\nBusiness: Any communication related to freelance work, usually from a humans email address\nOther: Doesn't fit into any other category.\n\nKey points:\n\nSaaS emails needing action are \"SaaS\" and subcategory \"action\".\nAnalyze the subject, body, email addresses and other data.\nLook for specific keywords and phrases for each category.\nEmail can have 2 categories, primary and sub, for example, \"action\" and \"SaaS\" or \"action\" and \"business\".\nEmails from business development executives are often junk.\n\n\nOutput in valid JSON format:\n{\n\"subject\": \"SUBJECT_LINE\",\n\"category\": \"PRIMARY CATEGORY\",\n\"subCategory\": \"SUBCATEGORY\", //use sparingly\n\"analysis\": \"Brief 1-2 sentence explanation of category choice\"\n}\nNo additional text or tokens outside the JSON.\n\nYou may only use the following categories and subcategories, do not create any more categories or subcategories: {{ $json.category }}"
+        }
+      },
+      "id": "85ff0348-16dc-46e6-bf70-48a10fe0ded8",
+      "name": "AI Agent1",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        2100,
+        268
+      ],
+      "typeVersion": 1.6
+    },
+    {
+      "parameters": {
+        "numberInputs": 7
+      },
+      "id": "93e7be79-9035-4b58-9a83-b9182a0515f8",
+      "name": "Merge1",
+      "type": "n8n-nodes-base.merge",
+      "position": [
+        4929,
+        364
+      ],
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "version": 2,
+                  "leftValue": "",
+                  "caseSensitive": false,
+                  "typeValidation": "strict"
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $json.output.category }}",
+                    "rightValue": "junk"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "junk"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "version": 2,
+                  "leftValue": "",
+                  "caseSensitive": false,
+                  "typeValidation": "strict"
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "0c61c7a8-e8b4-49c5-a96c-402d5eae7089",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $json.output.category }}",
+                    "rightValue": "receipt"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "receipt"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "version": 2,
+                  "leftValue": "",
+                  "caseSensitive": false,
+                  "typeValidation": "strict"
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "703f65c8-cf4a-47fe-ad1a-a5f6e0412ae7",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $json.output.category }}",
+                    "rightValue": "SaaS"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "SaaS"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "version": 2,
+                  "leftValue": "",
+                  "caseSensitive": false,
+                  "typeValidation": "strict"
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "b074d5cd-9215-40df-8877-5df904edc000",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $json.output.category }}",
+                    "rightValue": "community"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "community"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "version": 2,
+                  "leftValue": "",
+                  "caseSensitive": false,
+                  "typeValidation": "strict"
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "bece338a-e0c5-43b5-b8cc-41229a374213",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $json.output.category }}",
+                    "rightValue": "action"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "action"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "version": 2,
+                  "leftValue": "",
+                  "caseSensitive": false,
+                  "typeValidation": "strict"
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "d6c9751f-0ffa-4041-a579-6957bb9c9296",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $json.output.category }}",
+                    "rightValue": "business"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "business"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra",
+          "ignoreCase": true
+        }
+      },
+      "id": "cbaeaed1-cb09-4614-93f1-3fe349cd0e4e",
+      "name": "Switch1",
+      "type": "n8n-nodes-base.switch",
+      "position": [
+        3160,
+        288
+      ],
+      "typeVersion": 3.2
+    },
+    {
+      "parameters": {
+        "operation": "move",
+        "messageId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $('varID & Category1').item.json.id }}"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "AQMkADAwATYwMAItOTY4ZC0wZTcxLTAwAi0wMAoALgAAA1jKGrDN_RBCn7ACBndpmjsBANEOnyC7ZDdGvqCSLEudpZgAB4TGHiwAAAA=",
+          "mode": "list",
+          "cachedResultName": "Receipt ",
+          "cachedResultUrl": "https://outlook.office365.com/mail/AQMkADAwATYwMAItOTY4ZC0wZTcxLTAwAi0wMAoALgAAA1jKGrDN_RBCn7ACBndpmjsBANEOnyC7ZDdGvqCSLEudpZgAB4TGHiwAAAA%3D"
+        }
+      },
+      "id": "72cb54f3-4e4e-4ad2-8845-11a38fc29f1a",
+      "name": "Receipt",
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "position": [
+        3960,
+        -20
+      ],
+      "typeVersion": 2,
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "NccrNHW818CX3pdM",
+          "name": "Microsoft Outlook account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "move",
+        "messageId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $('varID & Category1').item.json.id }}"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "AQMkADAwATYwMAItOTY4ZC0wZTcxLTAwAi0wMAoALgAAA1jKGrDN_RBCn7ACBndpmjsBANEOnyC7ZDdGvqCSLEudpZgAB4TGHisAAAA=",
+          "mode": "list",
+          "cachedResultName": "SaaS",
+          "cachedResultUrl": "https://outlook.office365.com/mail/AQMkADAwATYwMAItOTY4ZC0wZTcxLTAwAi0wMAoALgAAA1jKGrDN_RBCn7ACBndpmjsBANEOnyC7ZDdGvqCSLEudpZgAB4TGHisAAAA%3D"
+        }
+      },
+      "id": "41a39309-1a94-461f-9308-63dd5b9a94a7",
+      "name": "SaaS",
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "position": [
+        3960,
+        148
+      ],
+      "typeVersion": 2,
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "NccrNHW818CX3pdM",
+          "name": "Microsoft Outlook account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "move",
+        "messageId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $('varID & Category1').item.json.id }}"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "AQMkADAwATYwMAItOTY4ZC0wZTcxLTAwAi0wMAoALgAAA1jKGrDN_RBCn7ACBndpmjsBANEOnyC7ZDdGvqCSLEudpZgAB4TGHi0AAAA=",
+          "mode": "list",
+          "cachedResultName": "Community",
+          "cachedResultUrl": "https://outlook.office365.com/mail/AQMkADAwATYwMAItOTY4ZC0wZTcxLTAwAi0wMAoALgAAA1jKGrDN_RBCn7ACBndpmjsBANEOnyC7ZDdGvqCSLEudpZgAB4TGHi0AAAA%3D"
+        }
+      },
+      "id": "3ee05cfe-a528-472e-aa3d-c890fd88b6c4",
+      "name": "Community",
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "position": [
+        3960,
+        308
+      ],
+      "typeVersion": 2,
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "NccrNHW818CX3pdM",
+          "name": "Microsoft Outlook account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "move",
+        "messageId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $('varID & Category1').item.json.id }}"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "AQMkADAwATYwMAItOTY4ZC0wZTcxLTAwAi0wMAoALgAAA1jKGrDN_RBCn7ACBndpmjsBANEOnyC7ZDdGvqCSLEudpZgAAAIBIgAAAA==",
+          "mode": "list",
+          "cachedResultName": "Junk Email",
+          "cachedResultUrl": "https://outlook.office365.com/mail/AQMkADAwATYwMAItOTY4ZC0wZTcxLTAwAi0wMAoALgAAA1jKGrDN_RBCn7ACBndpmjsBANEOnyC7ZDdGvqCSLEudpZgAAAIBIgAAAA%3D%3D"
+        }
+      },
+      "id": "bcf92a71-ff5f-46a7-bec3-cedb5be2bf98",
+      "name": "Junk Email",
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "position": [
+        3960,
+        -192
+      ],
+      "typeVersion": 2,
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "NccrNHW818CX3pdM",
+          "name": "Microsoft Outlook account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "move",
+        "messageId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $('varID & Category1').item.json.id }}"
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "AQMkAGE3ZTU5MGMzLTFkNGItNGQ5Zi04MDQ1LThmNGFlMTVhYjMwYgAuAAAD8UhruVwm402lgPBG2Tj-aQEAnz-IOcWBGE2lrVuQgAF6zAADLJmrCwAAAA==",
+          "cachedResultUrl": "https://outlook.office365.com/mail/AQMkAGE3ZTU5MGMzLTFkNGItNGQ5Zi04MDQ1LThmNGFlMTVhYjMwYgAuAAAD8UhruVwm402lgPBG2Tj%2FaQEAnz%2FIOcWBGE2lrVuQgAF6zAADLJmrCwAAAA%3D%3D",
+          "cachedResultName": "Actioned"
+        }
+      },
+      "id": "c75b9d38-79a7-4be2-a90b-a99da1bbd745",
+      "name": "Actioned",
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "position": [
+        4549,
+        404
+      ],
+      "typeVersion": 2,
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "NccrNHW818CX3pdM",
+          "name": "Microsoft Outlook account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "output": "fields",
+        "fields": [
+          "flag",
+          "from",
+          "importance",
+          "replyTo",
+          "sender",
+          "subject",
+          "toRecipients",
+          "body",
+          "categories",
+          "isRead"
+        ],
+        "filters": {
+          "custom": "flag/flagStatus eq 'notFlagged' and not categories/any()",
+          "foldersToInclude": [
+            "AQMkADAwATYwMAItOTY4ZC0wZTcxLTAwAi0wMAoALgAAA1jKGrDN_RBCn7ACBndpmjsBANEOnyC7ZDdGvqCSLEudpZgAAAIBDAAAAA=="
+          ]
+        },
+        "options": {}
+      },
+      "id": "db5846e3-b656-4a08-910a-1bf31a829d55",
+      "name": "Microsoft Outlook Trigger",
+      "type": "n8n-nodes-base.microsoftOutlookTrigger",
+      "typeVersion": 1,
+      "position": [
+        640,
+        460
+      ],
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "NccrNHW818CX3pdM",
+          "name": "Microsoft Outlook account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Actioned",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 5
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "node": "Microsoft Outlook12",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Microsoft Outlook13",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Microsoft Outlook18",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Microsoft Outlook16",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Microsoft Outlook20",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Microsoft Outlook22",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Microsoft Outlook21",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "varEmal1": {
+      "main": [
+        [
+          {
+            "node": "varID & Category1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "varJSON1": {
+      "main": [
+        [
+          {
+            "node": "Switch1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Catch Errors1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "varJSON1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Markdown1": {
+      "main": [
+        [
+          {
+            "node": "varEmal1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Catch Errors1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Markdown1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "varID & Category1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Microsoft Outlook12": {
+      "main": [
+        [
+          {
+            "node": "Junk Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Microsoft Outlook13": {
+      "main": [
+        [
+          {
+            "node": "Receipt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Microsoft Outlook16": {
+      "main": [
+        [
+          {
+            "node": "Community",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Microsoft Outlook18": {
+      "main": [
+        [
+          {
+            "node": "SaaS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Microsoft Outlook20": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Microsoft Outlook21": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 6
+          }
+        ]
+      ]
+    },
+    "Microsoft Outlook22": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Microsoft Outlook23": {
+      "main": [
+        [
+          {
+            "node": "Filter1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Microsoft Outlook23",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Receipt": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "SaaS": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Community": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Junk Email": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Actioned": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 4
+          }
+        ]
+      ]
+    },
+    "Microsoft Outlook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Filter1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "126b5fa7-fc7f-4f10-8070-b350fc05da56",
+  "meta": {
+    "templateId": "2454",
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3a5745a05f87ddee1db68b217dc043bfa206d1c7aaa1dd0a7dd76b852a733597"
+  },
+  "id": "qZ33rJTWhBcQKiDC",
+  "tags": []
+}
