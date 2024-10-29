@@ -145,4 +145,7 @@ For issues or questions, please open an issue in the repository or join the comm
 
 ---
 
-This README provides a concise overview of setting up and using the self-hosted AI starter kit. Follow the instructions carefully to ensure a smooth installation and operation of the services.
+## 📜 License
+
+This project is licensed under the Apache License 2.0 - see the
+[LICENSE](LICENSE) file for details.
