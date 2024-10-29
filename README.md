@@ -20,7 +20,7 @@ The **Self-Hosted AI Starter Kit** is a Docker Compose template designed to quic
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/yourusername/self-hosted-ai-starter-kit.git
+   git clone https://github.com/tazomatalax/Self-Hosted-AI-Starter-Kit.git
    cd self-hosted-ai-starter-kit
    ```
 
@@ -35,10 +35,12 @@ The **Self-Hosted AI Starter Kit** is a Docker Compose template designed to quic
    ```
 
 3. **Start the Services**:
-   Run the following command to start all services:
+   If you are using a nvidia GPU, run the following command to start all services:
    ```bash
    ./run.sh
    ```
+
+   If you plan to use your PC's CPU, you will need to edit the run, stop, and update scripts to reflect that. Just uncomment the CPU profile commands and comment the GPU profile commands.
 
 ## Services Overview
 
@@ -88,10 +90,13 @@ This script starts the Docker containers using the GPU profile:
 ```bash
 #!/bin/bash
 
-# Run docker-compose
-docker compose --profile gpu-nvidia up -d
+# Run docker-compose with the GPU profile
+docker compose --profile gpu-nvidia up
 
-# Display the host IP and Homepage URL
+# Run docker-compose with the CPU profile
+# docker compose --profile cpu up
+
+# Display the host IP and Homer URL
 echo "Docker containers have been started."
 echo "Access your services at: http://localhost:3333 (Homepage URL)"
 ```
@@ -101,10 +106,16 @@ This script updates the Docker containers:
 ```bash
 #!/bin/bash
 
+
+# Pull the latest images and recreate the containers with the GPU profile
 docker compose --profile gpu-nvidia pull
 docker compose create && docker compose --profile gpu-nvidia up -d
 
-# Display the host IP and Homepage URL
+# Pull the latest images and recreate the containers with the CPU profile
+# docker compose --profile cpu pull
+# docker compose create && docker compose --profile cpu up
+
+# Display the host IP and Homer URL
 echo "Docker containers have been updated."
 echo "Access your services at: http://localhost:3333 (Homepage URL)"
 ```
@@ -115,34 +126,13 @@ This script stops all running containers:
 #!/bin/bash
 
 docker compose --profile gpu-nvidia down
+
+# docker compose --profile cpu down
 ```
 
-### `initialize_portainer.sh`
-This script initializes the Portainer admin user:
-```bash
-#!/bin/bash
 
-# Wait for Portainer to be ready
-echo "Waiting for Portainer to start..."
-until $(curl --output /dev/null --silent --head --fail http://localhost:9000/api/status); do
-    printf '.'
-    sleep 5
-done
 
-echo "Portainer is ready!"
-
-# Initialize Portainer admin user
-curl -X POST "http://localhost:9000/api/users/admin/init" \
-    -H "Content-Type: application/json" \
-    -d '{
-        "Username": "admin",
-        "Password": "Asailorwent2ccc!"
-    }'
-
-echo "Portainer admin user created!"
-```
-
-## Upgrading
+## Upgrading Containers
 
 To upgrade your services, run the following commands:
 ```bash
@@ -155,4 +145,7 @@ For issues or questions, please open an issue in the repository or join the comm
 
 ---
 
-This README provides a concise overview of setting up and using the self-hosted AI starter kit. Follow the instructions carefully to ensure a smooth installation and operation of the services.
+## 📜 License
+
+This project is licensed under the Apache License 2.0 - see the
+[LICENSE](LICENSE) file for details.
