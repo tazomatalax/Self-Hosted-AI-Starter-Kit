@@ -20,8 +20,8 @@ The **Self-Hosted AI Starter Kit** is a Docker Compose template designed to quic
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/tazomatalax/ai.git
-   cd ai
+   git clone https://github.com/tazomatalax/Self-Hosted-AI-Starter-Kit.git
+   cd self-hosted-ai-starter-kit
    ```
 
 2. **Create a `.env` File**:
