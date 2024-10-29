@@ -59,3 +59,5 @@ coverage/
 vendor/
 
 n8n/backup/credentials/
+
+readmeold.md
