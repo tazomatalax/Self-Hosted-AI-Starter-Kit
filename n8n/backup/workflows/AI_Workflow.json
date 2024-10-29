@@ -556,11 +556,11 @@
           "conditions": [
             {
               "id": "5382be65-20a4-4e9a-90cc-0e0877cf0bd1",
-              "leftValue": "={{ $json.data }}",
-              "rightValue": "3000",
+              "leftValue": "={{ $json.data.length }}",
+              "rightValue": 3000,
               "operator": {
-                "type": "string",
-                "operation": "notEquals"
+                "type": "number",
+                "operation": "lt"
               }
             }
           ],
@@ -875,11 +875,11 @@
       ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "35092bf2-05cb-40be-b1df-a4b025768ac2",
+  "versionId": "6bf12f8b-297f-4ad6-8b5b-863b07e93898",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "3a5745a05f87ddee1db68b217dc043bfa206d1c7aaa1dd0a7dd76b852a733597"
