@@ -234,8 +234,8 @@
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1,
       "position": [
-        1080,
-        1060
+        1300,
+        880
       ],
       "alwaysOutputData": true
     },
@@ -261,8 +261,8 @@
       "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
       "typeVersion": 1,
       "position": [
-        1900,
-        1120
+        1860,
+        1100
       ]
     },
     {
@@ -288,8 +288,8 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOllama",
       "typeVersion": 1,
       "position": [
-        1840,
-        1240
+        1700,
+        1100
       ],
       "credentials": {
         "ollamaApi": {
@@ -480,8 +480,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1400,
-        1160
+        1300,
+        1760
       ]
     },
     {
@@ -494,8 +494,8 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        1640,
-        1160
+        1540,
+        1680
       ]
     },
     {
@@ -573,8 +573,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1280,
-        900
+        1040,
+        1580
       ]
     },
     {
@@ -595,8 +595,8 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        1400,
-        1000
+        1320,
+        1580
       ]
     }
   ],
@@ -694,7 +694,7 @@
       "main": [
         [
           {
-            "node": "If",
+            "node": "Qdrant Vector Store Insert",
             "type": "main",
             "index": 0
           }
@@ -803,13 +803,7 @@
     },
     "Qdrant Vector Store Insert": {
       "main": [
-        [
-          {
-            "node": "Loop Over Items",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "When chat message received": {
@@ -847,13 +841,7 @@
     },
     "If": {
       "main": [
-        [
-          {
-            "node": "Qdrant Vector Store Insert",
-            "type": "main",
-            "index": 0
-          }
-        ],
+        [],
         [
           {
             "node": "Code",
@@ -865,21 +853,15 @@
     },
     "Aggregate": {
       "main": [
-        [
-          {
-            "node": "Qdrant Vector Store Insert",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     }
   },
-  "active": true,
+  "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "6bf12f8b-297f-4ad6-8b5b-863b07e93898",
+  "versionId": "3425ada0-a3c2-437c-917c-a9d1d17dec04",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "3a5745a05f87ddee1db68b217dc043bfa206d1c7aaa1dd0a7dd76b852a733597"
