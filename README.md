@@ -20,8 +20,8 @@ The **Self-Hosted AI Starter Kit** is a Docker Compose template designed to quic
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/yourusername/self-hosted-ai-starter-kit.git
-   cd self-hosted-ai-starter-kit
+   git clone https://github.com/tazomatalax/ai.git
+   cd ai
    ```
 
 2. **Create a `.env` File**:
@@ -35,10 +35,12 @@ The **Self-Hosted AI Starter Kit** is a Docker Compose template designed to quic
    ```
 
 3. **Start the Services**:
-   Run the following command to start all services:
+   If you are using a nvidia GPU, run the following command to start all services:
    ```bash
    ./run.sh
    ```
+
+   If you plan to use your PC's CPU, you will need to edit the run, stop, and update scripts to reflect that. Just uncomment the CPU profile commands and comment the GPU profile commands.
 
 ## Services Overview
 
@@ -88,10 +90,13 @@ This script starts the Docker containers using the GPU profile:
 ```bash
 #!/bin/bash
 
-# Run docker-compose
-docker compose --profile gpu-nvidia up -d
+# Run docker-compose with the GPU profile
+docker compose --profile gpu-nvidia up
 
-# Display the host IP and Homepage URL
+# Run docker-compose with the CPU profile
+# docker compose --profile cpu up
+
+# Display the host IP and Homer URL
 echo "Docker containers have been started."
 echo "Access your services at: http://localhost:3333 (Homepage URL)"
 ```
@@ -101,10 +106,16 @@ This script updates the Docker containers:
 ```bash
 #!/bin/bash
 
+
+# Pull the latest images and recreate the containers with the GPU profile
 docker compose --profile gpu-nvidia pull
 docker compose create && docker compose --profile gpu-nvidia up -d
 
-# Display the host IP and Homepage URL
+# Pull the latest images and recreate the containers with the CPU profile
+# docker compose --profile cpu pull
+# docker compose create && docker compose --profile cpu up
+
+# Display the host IP and Homer URL
 echo "Docker containers have been updated."
 echo "Access your services at: http://localhost:3333 (Homepage URL)"
 ```
@@ -115,6 +126,8 @@ This script stops all running containers:
 #!/bin/bash
 
 docker compose --profile gpu-nvidia down
+
+# docker compose --profile cpu down
 ```
 
 
