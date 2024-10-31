@@ -23,12 +23,7 @@
     {
       "parameters": {
         "model": "llama3.1:latest",
-        "options": {
-          "temperature": 0.7,
-          "topK": 40,
-          "topP": 0.9,
-          "numCtx": 4096
-        }
+        "options": {}
       },
       "id": "85a33c7b-8eb0-4289-b196-3eb96c08430f",
       "name": "Ollama Chat Model",
@@ -47,7 +42,7 @@
     },
     {
       "parameters": {
-        "model": "llama3.1:latest",
+        "model": "hf.co/cognitivecomputations/dolphin-2.9.4-llama3.1-8b-gguf:Q5_K_S",
         "options": {}
       },
       "id": "3ffe428c-4d15-4a17-97cf-c1342afb8ec0",
@@ -68,7 +63,7 @@
     {
       "parameters": {
         "name": "documents",
-        "topK": 5
+        "topK": 3
       },
       "id": "2ce66131-82a1-4c88-8073-eceddbe75edd",
       "name": "Vector Store Tool",
@@ -88,8 +83,8 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOllama",
       "typeVersion": 1,
       "position": [
-        1660,
-        620
+        1840,
+        600
       ],
       "credentials": {
         "ollamaApi": {
@@ -427,6 +422,57 @@
     },
     {
       "parameters": {
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "documents",
+          "mode": "list",
+          "cachedResultName": "documents"
+        },
+        "options": {}
+      },
+      "id": "b2817c3e-36a5-44c6-8b58-d0e018a23c21",
+      "name": "Qdrant Vector Store",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1,
+      "position": [
+        1560,
+        480
+      ],
+      "credentials": {
+        "qdrantApi": {
+          "id": "dcQ0XmPJ7YxMdsR8",
+          "name": "QdrantApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "documents",
+          "mode": "list",
+          "cachedResultName": "documents"
+        },
+        "options": {}
+      },
+      "id": "04930ac5-061e-4645-ba3a-82f18832a7f8",
+      "name": "Qdrant Vector Store Insert",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1,
+      "position": [
+        1760,
+        880
+      ],
+      "credentials": {
+        "qdrantApi": {
+          "id": "dcQ0XmPJ7YxMdsR8",
+          "name": "QdrantApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
         "jsCode": "// Code node content\nconst results = [];\n\n// Function to split text into chunks\nfunction splitText(text, chunkSize = 1000, overlap = 100) {\n    const chunks = [];\n    let index = 0;\n    \n    while (index < text.length) {\n        chunks.push(text.slice(index, index + chunkSize));\n        index += (chunkSize - overlap);\n    }\n    \n    return chunks;\n}\n\nfor (const item of items) {\n    // Correctly access the binary data\n    const binaryContent = item.binary.data.data;\n    const fileName = item.binary.data.fileName;\n    \n    if (!binaryContent) {\n        console.log('No binary content found');\n        continue;\n    }\n    \n    // Convert binary data to text\n    const text = Buffer.from(binaryContent, 'base64').toString('utf-8');\n    \n    // Split the text into chunks\n    const textChunks = splitText(text);\n    \n    // Create an item for each chunk\n    textChunks.forEach((chunk, index) => {\n        results.push({\n            json: {\n                chunk: chunk,\n                chunkIndex: index,\n                totalChunks: textChunks.length,\n                fileId: item.json.file_id,\n                fileName: fileName,\n                isLastChunk: index === textChunks.length - 1\n            }\n        });\n    });\n}\n\nreturn results;"
       },
       "id": "fa509435-8b81-4102-bf63-88b424d03978",
@@ -485,6 +531,21 @@
     },
     {
       "parameters": {
+        "options": {
+          "systemMessage": "You are a helpful assistant. Please provide direct natural language responses without generating code unless specifically requested. do not respond with things like \"<|python_tag|>tool call response:\" in your answer"
+        }
+      },
+      "id": "c9d0d826-ba20-457f-8359-4d40234970c8",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        1000,
+        340
+      ]
+    },
+    {
+      "parameters": {
         "conditions": {
           "options": {
             "caseSensitive": true,
@@ -537,87 +598,6 @@
         1320,
         1580
       ]
-    },
-    {
-      "parameters": {
-        "mode": "insert",
-        "qdrantCollection": {
-          "__rl": true,
-          "value": "documents",
-          "mode": "list",
-          "cachedResultName": "documents"
-        },
-        "options": {}
-      },
-      "id": "04930ac5-061e-4645-ba3a-82f18832a7f8",
-      "name": "Qdrant Vector Store Insert",
-      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
-      "typeVersion": 1,
-      "position": [
-        1760,
-        880
-      ],
-      "credentials": {
-        "qdrantApi": {
-          "id": "dcQ0XmPJ7YxMdsR8",
-          "name": "QdrantApi account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "jsCode": "const processQuery = (items = []) => {\n  const systemContext = {\n    role: \"system\",\n    content: `You are a query processing assistant responsible for:\n    1. Query Analysis:\n       - Extract key concepts and entities\n       - Identify search intent\n       - Expand relevant terminology\n    \n    2. Context Management:\n       - Evaluate semantic relevance\n       - Track context dependencies\n       - Maintain conversation flow\n    \n    3. Response Preparation:\n       - Rank information by relevance\n       - Structure complex information\n       - Ensure source traceability`\n  };\n\n  // Process each item\n  return items.map(item => {\n    // Add system context\n    if (!item.messages) {\n      item.messages = [];\n    }\n    item.messages.unshift(systemContext);\n    \n    // Add query processing logic\n    item.processing = {\n      timestamp: new Date().toISOString(),\n      enhancedQuery: enhanceQuery(item.query),\n      contextRequirements: analyzeContextNeeds(item.query)\n    };\n    \n    return item;\n  });\n};\n\n// Helper functions\nfunction enhanceQuery(query) {\n  // Add query enhancement logic\n  return {\n    original: query,\n    keywords: extractKeywords(query),\n    entities: extractEntities(query),\n    intent: classifyIntent(query)\n  };\n}\n\nfunction analyzeContextNeeds(query) {\n  // Add context analysis logic\n  return {\n    requiredContext: identifyRequiredContext(query),\n    suggestedSources: suggestRelevantSources(query),\n    confidenceScore: calculateConfidence(query)\n  };\n}\n\n// Return processed items\nreturn {json: processQuery($input.all())};"
-      },
-      "id": "bd91ebc0-9494-4827-a05a-8451790ac242",
-      "name": "Code1",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        1320,
-        540
-      ]
-    },
-    {
-      "parameters": {
-        "options": {
-          "systemMessage": "You are a local RAG-enhanced AI assistant. Your role is to:\n- Provide accurate responses using the context from the vector store\n- Admit when you don't have enough information to answer\n- Keep responses focused and relevant to the retrieved context\n- Format responses in a clear, structured manner\n- Ask for clarification when user queries are ambiguous\n- Never make up information not present in the retrieved documents\n- Cite specific sources from the knowledge base when possible"
-        }
-      },
-      "id": "c9d0d826-ba20-457f-8359-4d40234970c8",
-      "name": "AI Agent",
-      "type": "@n8n/n8n-nodes-langchain.agent",
-      "typeVersion": 1.6,
-      "position": [
-        1000,
-        340
-      ]
-    },
-    {
-      "parameters": {
-        "qdrantCollection": {
-          "__rl": true,
-          "value": "documents",
-          "mode": "list",
-          "cachedResultName": "documents"
-        },
-        "options": {
-          "searchFilterJson": "{\n  \"should\": [\n    {\n      \"key\": \"metadata.batch\",\n      \"match\": {\n        \"value\": 12345\n      }\n    }\n  ]\n}"
-        }
-      },
-      "id": "b2817c3e-36a5-44c6-8b58-d0e018a23c21",
-      "name": "Qdrant Vector Store",
-      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
-      "typeVersion": 1,
-      "position": [
-        1540,
-        520
-      ],
-      "credentials": {
-        "qdrantApi": {
-          "id": "dcQ0XmPJ7YxMdsR8",
-          "name": "QdrantApi account"
-        }
-      }
     }
   ],
   "pinData": {},
@@ -787,6 +767,17 @@
         ]
       ]
     },
+    "Qdrant Vector Store": {
+      "ai_vectorStore": [
+        [
+          {
+            "node": "Vector Store Tool",
+            "type": "ai_vectorStore",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Code": {
       "main": [
         [
@@ -808,6 +799,11 @@
             "index": 0
           }
         ]
+      ]
+    },
+    "Qdrant Vector Store Insert": {
+      "main": [
+        []
       ]
     },
     "When chat message received": {
@@ -832,6 +828,17 @@
         ]
       ]
     },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "If": {
       "main": [
         [],
@@ -844,26 +851,9 @@
         ]
       ]
     },
-    "AI Agent": {
+    "Aggregate": {
       "main": [
-        [
-          {
-            "node": "Respond to Webhook",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Qdrant Vector Store": {
-      "ai_vectorStore": [
-        [
-          {
-            "node": "Vector Store Tool",
-            "type": "ai_vectorStore",
-            "index": 0
-          }
-        ]
+        []
       ]
     }
   },
@@ -871,7 +861,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "05312a8f-7b46-4b1a-9e28-9498e81fca03",
+  "versionId": "3425ada0-a3c2-437c-917c-a9d1d17dec04",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "3a5745a05f87ddee1db68b217dc043bfa206d1c7aaa1dd0a7dd76b852a733597"
