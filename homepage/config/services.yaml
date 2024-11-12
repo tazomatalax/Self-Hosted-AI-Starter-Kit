@@ -4,13 +4,17 @@
 
 - AI Services:
     - Open Web UI:
-        href: "http://localhost:3000"
+        href: "https://ai.local.vanderwoods.xyz"
         description: "User Interface"
         icon: "ollama.png"
     - Ollama:
         href: "http://localhost:11434"
         description: "AI Service"
         icon: "ollama.png"
+    - Bolt:
+        href: "http://localhost:5173"
+        description: "Code Editor"
+        icon: "https://developer.stackblitz.com/img/logo/stackblitz-bolt-blue.svg"
 - Managment Services:
     - Portainer:
         href: "http://localhost:9000"
@@ -18,7 +22,7 @@
         icon: "portainer.png"
 - Automation Services:
     - N8N:
-        href: "http://localhost:5678"
+        href: "https://n8n.local.vanderwoods.xyz"
         description: "Workflow Automation"
         icon: "n8n.png"
 - Database Services:

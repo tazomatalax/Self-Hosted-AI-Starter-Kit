@@ -108,6 +108,18 @@ services:
       n8n-import:
         condition: service_completed_successfully
 
+  n8n-export:
+    image: n8nio/n8n
+    container_name: n8n-export
+    entrypoint: /bin/sh
+    command:
+      - "-c"
+      - "while true; do sleep 3600; n8n export:workflow --all --separate --output=/backup/workflows; done"
+    volumes:
+      - ./n8n/backup:/backup
+    depends_on:
+      - n8n
+
   qdrant:
     image: qdrant/qdrant
     container_name: qdrant
@@ -145,7 +157,6 @@ services:
     depends_on:
       - ollama-gpu
 
-  # Portainer Service
   portainer:
     image: portainer/portainer-ce
     container_name: portainer
@@ -156,7 +167,6 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
-
 
   homepage:
     image: ghcr.io/gethomepage/homepage:latest

@@ -59,5 +59,8 @@ coverage/
 vendor/
 
 n8n/backup/credentials/
+n8n/backup/workflows/workflows-backup
 
 readmeold.md
+homepage/config/services.yaml
+
