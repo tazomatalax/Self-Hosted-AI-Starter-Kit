@@ -4,7 +4,7 @@
 
 - AI Services:
     - Open Web UI:
-        href: "https://ai.local.vanderwoods.xyz"
+        href: "http://localhost:3000"
         description: "User Interface"
         icon: "ollama.png"
     - Ollama:
@@ -22,7 +22,7 @@
         icon: "portainer.png"
 - Automation Services:
     - N8N:
-        href: "https://n8n.local.vanderwoods.xyz"
+        href: "http://localhost:5678"
         description: "Workflow Automation"
         icon: "n8n.png"
 - Database Services:
