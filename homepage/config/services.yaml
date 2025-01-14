@@ -4,30 +4,30 @@
 
 - AI Services:
     - Open Web UI:
-        href: "https://ai.local.vanderwoods.xyz"
+        href: "http://10.10.37.118:3000"
         description: "User Interface"
         icon: "ollama.png"
     - Ollama:
-        href: "http://localhost:11434"
+        href: "http://10.10.37.118:11434"
         description: "AI Service"
         icon: "ollama.png"
     - Bolt:
-        href: "http://localhost:5173"
+        href: "http://10.10.37.118:5173"
         description: "Code Editor"
         icon: "https://developer.stackblitz.com/img/logo/stackblitz-bolt-blue.svg"
 - Managment Services:
     - Portainer:
-        href: "http://localhost:9000"
+        href: "http://10.10.37.118:9000"
         description: "Management Interface"
         icon: "portainer.png"
 - Automation Services:
     - N8N:
-        href: "https://n8n.local.vanderwoods.xyz"
+        href: "http://10.10.37.118:5678"
         description: "Workflow Automation"
         icon: "n8n.png"
 - Database Services:
-    - Qdrant:
-        href: "http://localhost:6333/dashboard"
+    - Qdrant:    
+        href: "http://10.10.37.118:6333/dashboard"
         description: "Database Service"
         icon: "https://avatars.githubusercontent.com/u/73504361?s=200&v=4"
     - Google Drive:
