@@ -27,7 +27,7 @@ x-n8n: &service-n8n
   links:
     - postgres
 
-export WEBHOOK_URL=https://n8n.local.vanderwoods.xyz/
+
 
 x-ollama: &service-ollama
   image: ollama/ollama:latest
