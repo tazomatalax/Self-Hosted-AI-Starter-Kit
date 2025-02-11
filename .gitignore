@@ -64,3 +64,4 @@ n8n/documents/*
 readmeold.md
 homepage/config/services.yaml
 docker-compose.yml
+pipelines
