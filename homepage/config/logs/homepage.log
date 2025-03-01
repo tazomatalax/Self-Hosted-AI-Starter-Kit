@@ -6,3 +6,52 @@
 [2024-10-28T02:56:29.417Z] info: custom.js was copied to the config folder
 [2024-10-28T02:56:29.580Z] info: kubernetes.yaml was copied to the config folder
 [2024-11-07T20:44:16.702Z] error: undefined
+[2025-03-01T01:04:08.022Z] error: <service-helpers> Error getting services from Docker server 'docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2025-03-01T01:04:08.050Z] error: <service-helpers> Error getting services from Docker server 'docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2025-03-01T01:04:08.077Z] error: <service-helpers> Error getting services from Docker server 'docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2025-03-01T01:04:08.565Z] error: <service-helpers> Error getting services from Docker server 'docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2025-03-01T09:53:21.867Z] error: <service-helpers> Error getting services from Docker server 'docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2025-03-01T09:53:30.369Z] error: <service-helpers> Error getting services from Docker server 'docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2025-03-01T09:53:37.095Z] error: <service-helpers> Error getting services from Docker server 'docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}

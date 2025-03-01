@@ -1,33 +1,33 @@
 volumes:
   n8n_storage:
-  postgres_storage:
   ollama_storage:
   qdrant_storage:
   open-webui:
+  flowise:
   portainer_data:
-  nginx_proxy_manager_data:
-  nginx_proxy_manager_letsencrypt:
-  homer_data:
+
 
 networks:
   ai-network:
+  supabase_network:
+    external: true
+    name: ai-stack_default # This should match Supabase's network name
 
 x-n8n: &service-n8n
   image: n8nio/n8n:latest
-  networks: ['ai-network']
+  networks: ['ai-network', 'supabase_network'] # Add Supabase's network
   environment:
     - DB_TYPE=postgresdb
-    - DB_POSTGRESDB_HOST=postgres
-    - DB_POSTGRESDB_USER=${POSTGRES_USER}
+    - DB_POSTGRESDB_HOST=db
+    - DB_POSTGRESDB_USER=postgres
     - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD}
+    - DB_POSTGRESDB_DATABASE=postgres
     - N8N_DIAGNOSTICS_ENABLED=false
     - N8N_PERSONALIZATION_ENABLED=false
     - N8N_ENCRYPTION_KEY
     - N8N_USER_MANAGEMENT_JWT_SECRET
     - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
     - N8N_SECURE_COOKIE=false
-  links:
-    - postgres
 
 x-ollama: &service-ollama
   image: ollama/ollama:latest
@@ -48,9 +48,24 @@ x-init-ollama: &init-ollama
   entrypoint: /bin/sh
   command:
     - "-c"
-    - "sleep 3; OLLAMA_HOST=ollama:11434 ollama pull llama3.2; OLLAMA_HOST=ollama:11434 ollama pull nomic-embed-text; OLLAMA_HOST=ollama:11434 ollama pull qwen2.5-coder:32b; OLLAMA_HOST=ollama:11434 ollama pull llama3.2-vision "
+    - "sleep 3; OLLAMA_HOST=ollama:11434 ollama pull qwen2.5:7b-instruct-q4_K_M; OLLAMA_HOST=ollama:11434 ollama pull llama3.2; OLLAMA_HOST=ollama:11434 ollama pull nomic-embed-text; OLLAMA_HOST=ollama:11434 ollama pull llama3.2-vision "
 
 services:
+  flowise:
+    image: flowiseai/flowise
+    networks: ['ai-network']
+    restart: unless-stopped
+    container_name: flowise
+    environment:
+        - PORT=3001
+    ports:
+        - 3001:3001
+    extra_hosts:
+      - "host.docker.internal:host-gateway"        
+    volumes:
+        - ~/.flowise:/root/.flowise
+    entrypoint: /bin/sh -c "sleep 3; flowise start"
+
   open-webui:
     image: ghcr.io/open-webui/open-webui:main
     networks: ['ai-network']
@@ -66,37 +81,15 @@ services:
     volumes:
       - open-webui:/app/backend/data
 
-  postgres:
-    image: postgres:16-alpine
-    networks: ['ai-network']
-    restart: unless-stopped
-    ports:
-      - 5432:5432
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
+  n8n-import:
+    <<: *service-n8n
+    container_name: n8n-import
+    entrypoint: /bin/sh
+    command:
+      - "-c"
+      - "n8n import:credentials --separate --input=/backup/credentials && n8n import:workflow --separate --input=/backup/workflows"
     volumes:
-      - postgres_storage:/var/lib/postgresql/data
-      - ./initdb:/docker-entrypoint-initdb.d
-    healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -h localhost -U ${POSTGRES_USER} -d ${POSTGRES_DB}']
-      interval: 5s
-      timeout: 5s
-      retries: 10
-
-  # n8n-import:
-  #   <<: *service-n8n
-  #   container_name: n8n-import
-  #   entrypoint: /bin/sh
-  #   command:
-  #     - "-c"
-  #     - "n8n import:credentials --separate --input=/backup/credentials && n8n import:workflow --separate --input=/backup/workflows"
-  #   volumes:
-  #     - ./n8n/backup:/backup
-  #   depends_on:
-  #     postgres:
-  #       condition: service_healthy
+      - ./n8n/backup:/backup
 
   n8n:
     <<: *service-n8n
@@ -110,10 +103,8 @@ services:
       - ./n8n/documents:/documents
       - ./shared:/data/shared
     depends_on:
-      postgres:
-        condition: service_healthy
-      # n8n-import:
-      #   condition: service_completed_successfully
+      n8n-import:
+        condition: service_completed_successfully
 
   # n8n-export:
   #   image: n8nio/n8n
@@ -152,6 +143,14 @@ services:
               count: 1
               capabilities: [gpu]
 
+  ollama-gpu-amd:
+    profiles: ["gpu-amd"]
+    <<: *service-ollama
+    image: ollama/ollama:rocm
+    devices:
+      - "/dev/kfd"
+      - "/dev/dri"
+
   ollama-pull-llama-cpu:
     profiles: ["cpu"]
     <<: *init-ollama
@@ -163,6 +162,13 @@ services:
     <<: *init-ollama
     depends_on:
       - ollama-gpu
+
+  ollama-pull-llama-gpu-amd:
+    profiles: [gpu-amd]
+    <<: *init-ollama
+    image: ollama/ollama:rocm
+    depends_on:
+     - ollama-gpu-amd
 
   portainer:
     image: portainer/portainer-ce

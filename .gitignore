@@ -15,8 +15,8 @@ __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
-*.env
-*.venv
+.env
+.venv
 env/
 venv/
 ENV/
@@ -58,10 +58,22 @@ coverage/
 # Ignore dependency directories
 vendor/
 
+# Ignore n8n files
 n8n/backup/credentials/
 n8n/backup/workflows/workflows-backup
 n8n/documents/*
+
+# Ignore specific files
 readmeold.md
 homepage/config/services.yaml
 docker-compose.yml
 pipelines
+
+# Ignore environment files
+.env
+.env.test
+
+# Ignore volumes and shared directories
+volumes/
+shared/
+supabase/
