@@ -25,6 +25,10 @@
         href: "http://10.10.37.118:5678"
         description: "Workflow Automation"
         icon: "n8n.png"
+    - Flowise:
+        href: "http://10.10.37.118:3001"
+        description: "AI Service"
+        icon: "flowise.png"
 - Database Services:
     - Qdrant:    
         href: "http://10.10.37.118:6333/dashboard"
@@ -34,3 +38,7 @@
         href: "https://drive.google.com/drive/my-drive"
         description: "Cloud Storage"
         icon: "https://upload.wikimedia.org/wikipedia/commons/1/12/Google_Drive_icon_%282020%29.svg"
+    - Supabase:
+        href: "http://10.10.37.118:8000"
+        description: "Database RAG"
+        icon: "supabase.png"
