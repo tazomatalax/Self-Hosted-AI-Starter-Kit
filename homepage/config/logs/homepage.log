@@ -55,3 +55,203 @@
   syscall: 'connect',
   address: '/var/run/docker.sock'
 }
+[2025-04-14T21:42:46.076Z] error: <service-helpers> Error getting services from Docker server 'docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2025-04-14T21:42:46.468Z] error: <service-helpers> Error getting services from Docker server 'docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2025-04-14T21:42:46.891Z] error: <service-helpers> Error getting services from Docker server 'docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2025-04-14T22:52:55.014Z] error: <service-helpers> Error getting services from Docker server 'docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2025-04-14T22:52:55.254Z] error: <service-helpers> Error getting services from Docker server 'docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2025-04-14T22:52:55.431Z] error: <service-helpers> Error getting services from Docker server 'docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2025-04-15T02:01:34.016Z] error: <service-helpers> Error getting services from Docker server 'docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2025-04-15T02:03:22.749Z] error: <service-helpers> Error getting services from Docker server 'docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2025-04-15T02:03:22.753Z] error: Failed to load services.yaml, please check for errors
+[2025-04-15T02:03:22.753Z] error: YAMLException: can not read an implicit mapping pair; a colon is missed (26:29)
+
+ 23 |     - Cadvisor:
+ 24 |         href: "http://10.10.37.118:8089"
+ 25 |         description: "Resource Monitor
+ 26 |         icon: "cavisor.png" 
+----------------------------------^
+ 27 | - Automation Services:
+ 28 |     - N8N:
+[2025-04-15T02:03:22.764Z] error: <service-helpers> Error getting services from Docker server 'docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2025-04-15T02:03:22.767Z] error: Failed to load services.yaml, please check for errors
+[2025-04-15T02:03:22.767Z] error: YAMLException: can not read an implicit mapping pair; a colon is missed (26:29)
+
+ 23 |     - Cadvisor:
+ 24 |         href: "http://10.10.37.118:8089"
+ 25 |         description: "Resource Monitor
+ 26 |         icon: "cavisor.png" 
+----------------------------------^
+ 27 | - Automation Services:
+ 28 |     - N8N:
+[2025-04-15T02:03:23.174Z] error: <service-helpers> Error getting services from Docker server 'docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2025-04-15T02:03:23.177Z] error: Failed to load services.yaml, please check for errors
+[2025-04-15T02:03:23.177Z] error: YAMLException: can not read an implicit mapping pair; a colon is missed (26:29)
+
+ 23 |     - Cadvisor:
+ 24 |         href: "http://10.10.37.118:8089"
+ 25 |         description: "Resource Monitor
+ 26 |         icon: "cavisor.png" 
+----------------------------------^
+ 27 | - Automation Services:
+ 28 |     - N8N:
+[2025-04-15T02:03:28.497Z] error: <service-helpers> Error getting services from Docker server 'docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2025-04-15T02:03:28.499Z] error: Failed to load services.yaml, please check for errors
+[2025-04-15T02:03:28.500Z] error: YAMLException: can not read an implicit mapping pair; a colon is missed (26:29)
+
+ 23 |     - Cadvisor:
+ 24 |         href: "http://10.10.37.118:8089"
+ 25 |         description: "Resource Monitor
+ 26 |         icon: "cavisor.png" 
+----------------------------------^
+ 27 | - Automation Services:
+ 28 |     - N8N:
+[2025-04-15T02:03:36.233Z] error: <service-helpers> Error getting services from Docker server 'docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2025-04-15T02:03:36.235Z] error: Failed to load services.yaml, please check for errors
+[2025-04-15T02:03:36.235Z] error: YAMLException: can not read an implicit mapping pair; a colon is missed (26:28)
+
+ 23 |     - Cadvisor:
+ 24 |         href: "http://10.10.37.118:8089"
+ 25 |         description: "Resource Monitor
+ 26 |         icon: "cavisor.png"
+---------------------------------^
+ 27 | - Automation Services:
+ 28 |     - N8N:
+[2025-04-15T02:03:36.347Z] error: <service-helpers> Error getting services from Docker server 'docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2025-04-15T02:03:36.354Z] error: Failed to load services.yaml, please check for errors
+[2025-04-15T02:03:36.354Z] error: YAMLException: can not read an implicit mapping pair; a colon is missed (26:28)
+
+ 23 |     - Cadvisor:
+ 24 |         href: "http://10.10.37.118:8089"
+ 25 |         description: "Resource Monitor
+ 26 |         icon: "cavisor.png"
+---------------------------------^
+ 27 | - Automation Services:
+ 28 |     - N8N:
+[2025-04-15T02:04:15.274Z] error: <service-helpers> Error getting services from Docker server 'docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2025-04-15T02:04:15.279Z] error: <service-helpers> Error getting services from Docker server 'docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2025-04-15T02:04:15.410Z] error: <service-helpers> Error getting services from Docker server 'docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2025-04-15T02:05:53.620Z] error: <service-helpers> Error getting services from Docker server 'docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2025-04-15T02:06:06.649Z] error: <service-helpers> Error getting services from Docker server 'docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2025-04-23T21:03:54.415Z] error: <service-helpers> Error getting services from Docker server 'docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2025-04-23T21:07:29.759Z] error: <service-helpers> Error getting services from Docker server 'docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}

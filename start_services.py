@@ -65,8 +65,13 @@ def stop_existing_containers():
         "-p", "ai-stack",
         "-f", "docker-compose.yml",
         "-f", "supabase/docker/docker-compose.yml",
-        "down"
+        "down",
+        "--remove-orphans"  # Add this flag to remove orphan containers
     ])
+    # Explicitly remove the network, ignoring errors if it doesn't exist
+    print("Attempting to remove network 'ai-stack_ai-network'...")
+    subprocess.run(["docker", "network", "rm", "ai-stack_ai-network"], check=False, capture_output=True)
+
 
 def start_supabase():
     """Start the Supabase services (using its compose file)."""

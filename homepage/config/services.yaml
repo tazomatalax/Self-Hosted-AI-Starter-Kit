@@ -20,6 +20,10 @@
         href: "http://10.10.37.118:9000"
         description: "Management Interface"
         icon: "portainer.png"
+    - Cadvisor:
+        href: "http://10.10.37.118:8089"
+        description: "Resource Monitor"
+        icon: "cadisor.png"
 - Automation Services:
     - N8N:
         href: "http://10.10.37.118:5678"
